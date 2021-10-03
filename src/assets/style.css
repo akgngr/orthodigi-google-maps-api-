@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gm-style-iw{
+  background-image: url("./logo.png");
+  background-size: 50%;
+  background-position: right bottom;
+  @apply bg-no-repeat;
+}
