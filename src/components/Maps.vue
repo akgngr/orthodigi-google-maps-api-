@@ -200,7 +200,7 @@ export default {
   @apply col-span-2 px-4 md:order-first order-last mt-6 md:pt-0 w-screen md:w-full m-auto;
 }
 .blok-left-content{
-  height: calc(100vh - 200px);
+  height: calc(100vh - 180px);
   @apply overflow-y-scroll overscroll-contain w-screen md:w-full;
 }
 .blok-right{
@@ -214,6 +214,9 @@ export default {
 */
 .gm-style-iw{
   @apply h-36 w-48 bg-gray-100 text-left p-3;
+}
+.gm-style-iw a{
+  @apply text-blue-600 pt-3;
 }
 label{
   @apply pb-1 font-bold text-lg uppercase;
