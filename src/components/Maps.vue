@@ -7,52 +7,79 @@
           <GmapAutocomplete
             id="search"
             placeholder="Buraya şehir adını yazınız.."
-            @place_changed="setPlace">
+            @place_changed="setPlace"
+          >
           </GmapAutocomplete>
-          <button class="px-2 py-1 border hover:bg-blue-400 hover:text-white" @click="cityNull">Sıfırla</button>
+          <button
+            class="px-2 py-1 border hover:bg-blue-400 hover:text-white"
+            @click="cityNull"
+          >
+            Sıfırla
+          </button>
         </div>
       </div>
       <div class="blok-left-content">
         <div v-for="(m, index) in markers" :key="index">
-          <span 
+          <span
             v-if="city == null"
-            @click="toggleInfoWindow(m,index)" 
-            v-html="m.infoText"
-            >
+            @click="toggleInfoWindow(m, index)"
+            v-html="
+              `<h2>${m.fields.fullName}</h2><h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
+            "
+          >
           </span>
-          <span 
-            v-if="m.city === city"
-            @click="toggleInfoWindow(m,index)" 
-            v-html="m.infoText"
-            >
+          <span
+            v-if="m.fields.city === city"
+            @click="toggleInfoWindow(m, index)"
+            v-html="
+              `<h2>${m.fields.fullName}</h2><h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
+            "
+          >
           </span>
         </div>
-        
       </div>
     </div>
     <div class="blok-right">
-      <GmapMap class="map-container" ref="mapRef" :center="center" :zoom="zoom" >
-        <GmapInfoWindow :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
+      <GmapMap class="map-container" ref="mapRef" :center="center" :zoom="zoom">
+        <GmapInfoWindow
+          :options="infoOptions"
+          :position="infoWindowPos"
+          :opened="infoWinOpen"
+          @closeclick="infoWinOpen = false"
+        >
         </GmapInfoWindow>
-        <GmapMarker ref="myMarker" :clickable="true" @click="toggleInfoWindow(m,index)" v-for="(m, index) in markers" :key="index" :position="m.position" :center="m.position"  />
-        <GmapMarker v-if="this.place" label="&#x2605;" :position="{
-          lat: this.place.geometry.location.lat(),
-          lng: this.place.geometry.location.lng(),
-        }"></GmapMarker>
+        <GmapMarker
+          ref="myMarker"
+          :clickable="true"
+          @click="toggleInfoWindow(m, index)"
+          v-for="(m, index) in markers"
+          :key="index"
+          :position="{ lat: m.fields.positionLat, lng: m.fields.positionLng }"
+          :center="{ lat: m.fields.positionLat, lng: m.fields.positionLng }"
+        />
+        <GmapMarker
+          v-if="this.place"
+          label="&#x2605;"
+          :position="{
+            lat: this.place.geometry.location.lat(),
+            lng: this.place.geometry.location.lng(),
+          }"
+        ></GmapMarker>
       </GmapMap>
     </div>
   </div>
 </template>
 
 <script>
-import { gmapApi } from 'gmap-vue';
+import { gmapApi } from "gmap-vue";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      center: { 
-        lat: 38.963745, 
-        lng: 35.243322 
+      center: {
+        lat: 38.963745,
+        lng: 35.243322,
       },
       zoom: 6,
       city: null,
@@ -62,86 +89,28 @@ export default {
       currentMidx: null,
 
       infoOptions: {
-      content: '',
+        content: "",
         //optional: offset infowindow so it visually sits nicely on top of our marker
         pixelOffset: {
           width: 0,
-          height: -45
-        }
+          height: -45,
+        },
       },
-      markers: [{
-          position: {
-            lat: 37.05580558122161,
-            lng: 37.418308088518444
-          },
-          infoText: '<h2>Dr. NUR ÖZEL</h2><h3>İZMİR EĞİTİM DİŞ HASTANESİ</h3><p>AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR</p><p><a target="_blank" href="https://goo.gl/maps/joC6SNyE4GFQC5627">Haritada aç</a></p>',
-          city: 'Gaziantep',
-          doctor: 'Dr. NUR ÖZEL',
-          job: 'İZMİR EĞİTİM DİŞ HASTANESİ',
-          address: 'AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR'
-        }, {
-          position: {
-            lat: 37.0122069454525,
-            lng: 37.80176493206037
-          },
-          infoText: '<h2>Dr. NUR ÖZEL</h2><h3>İZMİR EĞİTİM DİŞ HASTANESİ</h3><p>AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR</p><p><a target="_blank" href="https://goo.gl/maps/joC6SNyE4GFQC5627">Haritada aç</a></p>',
-          city: 'Gaziantep',
-          doctor: 'Dr. NUR ÖZEL',
-          job: 'İZMİR EĞİTİM DİŞ HASTANESİ',
-          address: 'AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR'
-        }, {
-          position: {
-            lat: 38.72528080678386,
-            lng: 35.49369306912675
-          },
-          infoText: '<h2>Dr. NUR ÖZEL</h2><h3>İZMİR EĞİTİM DİŞ HASTANESİ</h3><p>AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR</p><p><a target="_blank" href="https://goo.gl/maps/joC6SNyE4GFQC5627">Haritada aç</a></p>',
-          city: 'Kayseri',
-          doctor: 'Dr. NUR ÖZEL',
-          job: 'İZMİR EĞİTİM DİŞ HASTANESİ',
-          address: 'AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR'
-        }, {
-          position: {
-            lat: 39.93402517027752,
-            lng: 32.86332800002142
-          },
-          infoText: '<h2>Dr. NUR ÖZEL</h2><h3>İZMİR EĞİTİM DİŞ HASTANESİ</h3><p>AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR</p><p><a target="_blank" href="https://goo.gl/maps/joC6SNyE4GFQC5627">Haritada aç</a></p>',
-          city: 'Ankara',
-          doctor: 'Dr. NUR ÖZEL',
-          job: 'İZMİR EĞİTİM DİŞ HASTANESİ',
-          address: 'AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR'
-        }, {
-          position: {
-            lat: 38.42978825605431,
-            lng: 27.141434332353658
-          },
-          infoText: '<h2>Dr. NUR ÖZEL</h2><h3>İZMİR EĞİTİM DİŞ HASTANESİ</h3><p>AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR</p><p><a target="_blank" href="https://goo.gl/maps/joC6SNyE4GFQC5627">Haritada aç</a></p>',
-          city: 'İzmir',
-          doctor: 'Dr. NUR ÖZEL',
-          job: 'İZMİR EĞİTİM DİŞ HASTANESİ',
-          address: 'AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR'
-        }, {
-          position: {
-            lat: 38.42978825605431,
-            lng: 27.141434332353658
-          },
-          infoText: '<h2>Dr. NUR ÖZEL</h2><h3>İZMİR EĞİTİM DİŞ HASTANESİ</h3><p>AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR</p><p><a target="_blank" href="https://goo.gl/maps/joC6SNyE4GFQC5627">Haritada aç</a></p>',
-          city: 'İzmir',
-          doctor: 'Dr. NUR ÖZEL',
-          job: 'İZMİR EĞİTİM DİŞ HASTANESİ',
-          address: 'AKINCI MAH. FEVZİ PAŞA BULV. 35240 İZMİR, TR'
-        }
-      ]
-    }
+      markers: [],
+    };
   },
-  mounted () {
+  mounted() {
     // At this point, the child GmapMap has been mounted, but
     // its map has not been initialized.
     // Therefore we need to write mapRef.$mapPromise.then(() => ...)
 
     this.$refs.mapRef.$mapPromise.then((map) => {
-      map.panTo({lat: 38.963745, lng: 35.243322})
-    })
-
+      map.panTo({ lat: 38.963745, lng: 35.243322 });
+    });
+  },
+  created() {
+    this.fetchData();
+    //console.log(this.markers);
   },
   computed: {
     // The below example is the same as writing
@@ -151,9 +120,29 @@ export default {
     google: gmapApi,
   },
   methods: {
-    toggleInfoWindow: function(marker, idx) {
-      this.infoWindowPos = marker.position;
-      this.infoOptions.content = marker.infoText;
+    fetchData() {
+      axios
+        .get(
+          "https://api.airtable.com/v0/" +
+            process.env.VUE_APP_AIRTABLE_API_BASE_ID +
+            "/doctors?sort=&view=Grid%20view",
+          {
+            headers: {
+              Authorization: "Bearer " + process.env.VUE_APP_AIRTABLE_API_KEY,
+            },
+          }
+        )
+        .then((res) => {
+          this.markers = res.data.records;
+          //console.log(res.data.records);
+        });
+    },
+    toggleInfoWindow: function (marker, idx) {
+      this.infoWindowPos = {
+        lat: marker.fields.positionLat,
+        lng: marker.fields.positionLng,
+      };
+      this.infoOptions.content = `<h2>${marker.fields.fullName}</h2><h3>${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
 
       //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
@@ -167,69 +156,68 @@ export default {
       }
     },
     setPlace(place) {
-      console.log(place.address_components[0].long_name)
-      this.center = { 
-        lat: place.geometry.location.lat, 
-        lng: place.geometry.location.lng
-      }
-      this.zoom = 12
-      if(place){
-        this.city = place.address_components[0].long_name
+      console.log(place.address_components[0].long_name);
+      this.center = {
+        lat: place.geometry.location.lat,
+        lng: place.geometry.location.lng,
+      };
+      this.zoom = 12;
+      if (place) {
+        this.city = place.address_components[0].long_name;
       } else {
-        this.city = null
+        this.city = null;
       }
     },
     cityNull() {
-      this.city = null,
-      this.center= { 
-        lat: 38.963745, 
-        lng: 35.243322 
-      }
-      this.zoom = 6
-      this.place = null
-    }
-  }
-}
+      (this.city = null),
+        (this.center = {
+          lat: 38.963745,
+          lng: 35.243322,
+        });
+      this.zoom = 6;
+      this.place = null;
+    },
+  },
+};
 </script>
 
 <style>
-.container{
+.container {
   @apply grid md:grid-cols-6 m-auto;
 }
-.blok-left{
+.blok-left {
   @apply col-span-2 px-4 md:order-first order-last mt-6 md:pt-0 w-screen md:w-full m-auto;
 }
-.blok-left-content{
+.blok-left-content {
   height: calc(100vh - 180px);
   @apply overflow-y-scroll overscroll-contain w-screen md:w-full;
 }
-.blok-right{
+.blok-right {
   @apply col-span-4;
 }
-.map-container{
+.map-container {
   @apply w-full md:h-full h-80;
 }
 /*
 *  harita balonları 
 */
-.gm-style-iw{
+.gm-style-iw {
   @apply h-36 w-48 bg-gray-100 text-left p-3;
 }
-.gm-style-iw a{
+.gm-style-iw a {
   @apply text-blue-600 pt-3;
 }
-label{
+label {
   @apply pb-1 font-bold text-lg uppercase;
 }
-.blok-left .searchContainer input{
-  @apply px-4 py-2 border w-full ;
+.blok-left .searchContainer input {
+  @apply px-4 py-2 border w-full;
 }
 .blok-left span {
   @apply block cursor-pointer hover:bg-gray-200 hover:text-gray-600 active:bg-gray-200 p-2;
 }
 
-.searchContainer{
+.searchContainer {
   @apply flex gap-4;
 }
 </style>
-

@@ -8,7 +8,10 @@
     <hr />
     <router-view />
     <footer class="py-8 text-sm w-10/12 m-auto">
-      <p><a target="_blank" href="https://akgngr.com">Abdulkadir GÜNGÖR</a> tarafından yapılmıştır</p>
+      <p>
+        <a target="_blank" href="https://akgngr.com">Abdulkadir GÜNGÖR</a>
+        tarafından yapılmıştır
+      </p>
     </footer>
   </div>
 </template>
@@ -23,7 +26,7 @@
 }
 
 #nav {
-  @apply py-4 text-center
+  @apply py-4 text-center;
 }
 
 #nav a {
