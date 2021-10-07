@@ -24,7 +24,7 @@
             v-if="city == null"
             @click="toggleInfoWindow(m, index)"
             v-html="
-              `<h2>${m.fields.fullName}</h2><h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
+              `<h2>${m.fields.fullName}</h2>${m.fields.status}<h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
             "
           >
           </span>
@@ -72,9 +72,11 @@
 
 <script>
 import { gmapApi } from "gmap-vue";
-import axios from "axios";
 
 export default {
+  props:[
+    'markers'
+  ],
   data() {
     return {
       center: {
@@ -96,7 +98,7 @@ export default {
           height: -45,
         },
       },
-      markers: [],
+      
     };
   },
   mounted() {
@@ -108,10 +110,6 @@ export default {
       map.panTo({ lat: 38.963745, lng: 35.243322 });
     });
   },
-  created() {
-    this.fetchData();
-    //console.log(this.markers);
-  },
   computed: {
     // The below example is the same as writing
     // google() {
@@ -120,23 +118,7 @@ export default {
     google: gmapApi,
   },
   methods: {
-    fetchData() {
-      axios
-        .get(
-          "https://api.airtable.com/v0/" +
-            process.env.VUE_APP_AIRTABLE_API_BASE_ID +
-            "/doctors?sort=&view=Grid%20view",
-          {
-            headers: {
-              Authorization: "Bearer " + process.env.VUE_APP_AIRTABLE_API_KEY,
-            },
-          }
-        )
-        .then((res) => {
-          this.markers = res.data.records;
-          //console.log(res.data.records);
-        });
-    },
+    
     toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = {
         lat: marker.fields.positionLat,

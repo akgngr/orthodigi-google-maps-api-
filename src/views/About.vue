@@ -16,9 +16,7 @@
 
 <script>
 export default {
-  data() {},
-  mounted() {},
-  computed: {},
+
 };
 </script>
 
