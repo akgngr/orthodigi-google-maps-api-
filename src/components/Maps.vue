@@ -20,14 +20,16 @@
       </div>
       <div class="blok-left-content">
         <div v-for="(m, index) in markers" :key="index">
+          
           <span
             v-if="city == null"
             @click="toggleInfoWindow(m, index)"
             v-html="
-              `<h2>${m.fields.fullName}</h2>${m.fields.status}<h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
+              `<h2 class='font-bold'>${m.fields.fullName}</h2><h3 class='text-sm'>${m.fields.job}</h3><p>${m.fields.address}</p><p><a class='font-sm text-blue-400' target='_blank'; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
             "
           >
           </span>
+
           <span
             v-if="m.fields.city === city"
             @click="toggleInfoWindow(m, index)"
@@ -36,6 +38,7 @@
             "
           >
           </span>
+
         </div>
       </div>
     </div>
@@ -79,7 +82,7 @@ export default {
   ],
   data() {
     return {
-      center: {
+      center: { 
         lat: 38.963745,
         lng: 35.243322,
       },
@@ -102,23 +105,14 @@ export default {
     };
   },
   mounted() {
-    // At this point, the child GmapMap has been mounted, but
-    // its map has not been initialized.
-    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
-
     this.$refs.mapRef.$mapPromise.then((map) => {
       map.panTo({ lat: 38.963745, lng: 35.243322 });
     });
   },
   computed: {
-    // The below example is the same as writing
-    // google() {
-    //   return gmapApi();
-    // },
     google: gmapApi,
   },
   methods: {
-    
     toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = {
         lat: marker.fields.positionLat,
