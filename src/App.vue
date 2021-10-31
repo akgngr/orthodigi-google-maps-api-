@@ -5,8 +5,28 @@
         <img class="h-8" src="transparentlogo.png" />
       </div>
       <div class="block lg:hidden">
-        <button @click="mobil = !mobil" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-gray-600 hover:border-gray-400">
-          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        <button
+          @click="mobil = !mobil"
+          class="
+            flex
+            items-center
+            px-3
+            py-2
+            border
+            rounded
+            text-teal-200
+            border-teal-400
+            hover:text-gray-600 hover:border-gray-400
+          "
+        >
+          <svg
+            class="fill-current h-3 w-3"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
         </button>
       </div>
       <!-- Desktop Menu -->
@@ -14,15 +34,22 @@
         <div class="text-md lg:flex-grow">
           <router-link class="link" to="/">Doktorlarımız</router-link>
           <router-link class="link" to="/about">Uygulama Hakkında</router-link>
-          <a class="link" target="_blank" href="https://orthodigi.com">Orthodigi Anasayfa</a>
+          <a class="link" target="_blank" href="https://orthodigi.com"
+            >Orthodigi Anasayfa</a
+          >
         </div>
       </div>
       <!-- Mobil Menu -->
-      <div v-show="mobil" class="w-full flex-end lg:flex lg:items-center lg:w-auto">
+      <div
+        v-show="mobil"
+        class="w-full flex-end lg:flex lg:items-center lg:w-auto"
+      >
         <div class="text-md lg:flex-grow">
           <router-link class="link" to="/">Doktorlarımız</router-link>
           <router-link class="link" to="/about">Uygulama Hakkında</router-link>
-          <a class="link" target="_blank" href="https://orthodigi.com">Orthodigi Anasayfa</a>
+          <a class="link" target="_blank" href="https://orthodigi.com"
+            >Orthodigi Anasayfa</a
+          >
         </div>
       </div>
     </nav>
@@ -38,16 +65,16 @@
 
 <script>
 export default {
-  data(){
-    return{
-      mobil: false
-    }
+  data() {
+    return {
+      mobil: false,
+    };
   },
   watch: {
-    $route (to, from){
-        this.mobil = false;
-    }
-  }
+    $route() {
+      this.mobil = false;
+    },
+  },
 };
 </script>
 
@@ -61,11 +88,16 @@ export default {
 }
 
 nav {
-  background-image: linear-gradient(to right, #5192e1 0%, #23ced5 51%, #5192e1 100%) !important;
+  background-image: linear-gradient(
+    to right,
+    #5192e1 0%,
+    #23ced5 51%,
+    #5192e1 100%
+  ) !important;
   @apply flex items-center justify-between flex-wrap p-6 text-white;
 }
 
-.link{
+.link {
   @apply block mt-4 lg:inline-block lg:mt-0 mr-4;
 }
 </style>
