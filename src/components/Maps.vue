@@ -20,7 +20,6 @@
       </div>
       <div class="blok-left-content">
         <div v-for="(m, index) in markers" :key="index">
-          
           <span
             v-if="city == null"
             @click="toggleInfoWindow(m, index)"
@@ -38,7 +37,6 @@
             "
           >
           </span>
-
         </div>
       </div>
     </div>
@@ -52,6 +50,7 @@
         >
         </GmapInfoWindow>
         <GmapMarker
+          :icon="'orthodigimap.svg'"
           ref="myMarker"
           :clickable="true"
           @click="toggleInfoWindow(m, index)"
@@ -77,12 +76,10 @@
 import { gmapApi } from "gmap-vue";
 
 export default {
-  props:[
-    'markers'
-  ],
+  props: ["markers"],
   data() {
     return {
-      center: { 
+      center: {
         lat: 38.963745,
         lng: 35.243322,
       },
@@ -101,7 +98,6 @@ export default {
           height: -45,
         },
       },
-      
     };
   },
   mounted() {
@@ -118,7 +114,7 @@ export default {
         lat: marker.fields.positionLat,
         lng: marker.fields.positionLng,
       };
-      this.infoOptions.content = `<h2>${marker.fields.fullName}</h2><h3>${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
+      this.infoOptions.content = `<h2 class="font-bold">${marker.fields.fullName}</h2><h3 class="font-semibold">${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
 
       //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {

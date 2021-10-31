@@ -13,12 +13,12 @@ export default {
   components: {
     Maps,
   },
-  data(){
-    return{
+  data() {
+    return {
       markers: [],
-    }
+    };
   },
-  methods:{
+  methods: {
     async fetchData() {
       await axios
         .get(

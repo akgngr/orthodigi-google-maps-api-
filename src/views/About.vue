@@ -15,14 +15,12 @@
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style>
 .about {
   height: calc(100vh - 140px);
-  @apply w-8/12 pt-16 container m-auto px-16;
+  @apply w-10/12 lg:w-8/12 pt-16 container m-auto lg:px-16;
 }
 </style>

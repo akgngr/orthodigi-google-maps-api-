@@ -1,0 +1,30 @@
+[
+  {
+      "price":"0.000000",
+      "default_on":"1",
+      "quantity":"300",
+      "id_product_attribute":"1",
+      "attributes":
+        [
+          {"name_group":"Size","name":"S","color":""},
+          {"name_group":"Color","name":"White","color":"#ffffff"}
+        ]
+  },
+  {"price":"0.000000",
+    "default_on":null,
+    "quantity":"300",
+    "id_product_attribute":"2",
+    "attributes":[
+      {
+        "name_group":"Size",
+        "name":"S",
+        "color":""
+      },
+      {
+        "name_group":"Color",
+        "name":"Black",
+        "color":"#434A54"
+      }
+    ]
+    },{"price":"0.000000","default_on":null,"quantity":"300","id_product_attribute":"3","attributes":[{"name_group":"Size","name":"M","color":""},{"name_group":"Color","name":"White","color":"#ffffff"}]},{"price":"0.000000","default_on":null,"quantity":"300","id_product_attribute":"4","attributes":[{"name_group":"Size","name":"M","color":""},{"name_group":"Color","name":"Black","color":"#434A54"}]},{"price":"0.000000","default_on":null,"quantity":"300","id_product_attribute":"5","attributes":[{"name_group":"Size","name":"L","color":""},{"name_group":"Color","name":"White","color":"#ffffff"}]},{"price":"0.000000","default_on":null,"quantity":"300","id_product_attribute":"6","attributes":[{"name_group":"Size","name":"L","color":""},{"name_group":"Color","name":"Black","color":"#434A54"}]},{"price":"0.000000","default_on":null,"quantity":"300","id_product_attribute":"7","attributes":[{"name_group":"Size","name":"XL","color":""},{"name_group":"Color","name":"White","color":"#ffffff"}]},{"price":"0.000000","default_on":null,"quantity":"300","id_product_attribute":"8","attributes":[{"name_group":"Size","name":"XL","color":""},{"name_group":"Color","name":"Black","color":"#434A54"}]}] 
+      
