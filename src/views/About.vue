@@ -1,5 +1,7 @@
 <template>
   <div class="about">
+        <title>Orthodigi | Doktor Bul Hakkında..</title>
+
     <article class="prose">
       <h1>Uygulama Hakkında</h1>
       <p>
@@ -15,7 +17,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  metaInfo: {
+    title: "Orthodigi",
+    titleTemplate: "%s | Doktor Bul Uygulaması Hakkında..",
+  }
+};
 </script>
 
 <style>

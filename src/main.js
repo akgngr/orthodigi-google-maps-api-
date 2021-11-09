@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import * as GmapVue from "gmap-vue";
 import "@/assets/style.css";
+import VueMeta from "vue-meta";
 
 Vue.config.productionTip = false;
 
@@ -16,8 +17,10 @@ Vue.use(GmapVue, {
   installComponents: true,
 });
 
+Vue.use(VueMeta);
+
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App),
 }).$mount("#app");

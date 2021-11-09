@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="head-container">
     <div class="blok-left">
       <div class="flex flex-col pb-3">
         <label for="search">Şehir Ara</label>
@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style>
-.container {
+.head-container {
   @apply grid md:grid-cols-6 m-auto;
 }
 .blok-left {

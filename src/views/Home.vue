@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    
     <Maps :markers="markers" />
   </div>
 </template>
@@ -10,6 +11,10 @@ import axios from "axios";
 
 export default {
   name: "Home",
+  metaInfo: {
+    title: "Orthodigi",
+    titleTemplate: "%s | Bizimle Çalışan Doktorlar..",
+  },
   components: {
     Maps,
   },
