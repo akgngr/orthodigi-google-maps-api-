@@ -20,23 +20,24 @@
       </div>
       <div class="blok-left-content">
         <div v-for="(m, index) in markers" :key="index">
-          <span
+          <div
+            class="aciklama"
             v-if="city == null"
             @click="toggleInfoWindow(m, index)"
             v-html="
-              `<h2 class='font-bold'>${m.fields.fullName}</h2><h3 class='text-sm'>${m.fields.job}</h3><p>${m.fields.address}</p><p><a class='font-sm text-blue-400' target='_blank'; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
+              `<h2 class='font-bold'><span class='text-red-400'>${m.fields.unvan}</span> ${m.fields.fullName}</h2><h3 class='text-sm'>${m.fields.job}</h3><p>${m.fields.address}</p><p><a class='font-sm text-blue-400' target='_blank'; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
             "
           >
-          </span>
-
-          <span
+          </div>
+          <div
+            class="aciklama"
             v-if="m.fields.city === city"
             @click="toggleInfoWindow(m, index)"
             v-html="
-              `<h2>${m.fields.fullName}</h2><h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
+              `<h2 class='font-bold'><span class='text-red-400'>${m.fields.unvan}</span> ${m.fields.fullName}</h2><h3>${m.fields.job}</h3><p>${m.fields.address}</p><p><a target=&quot;_blank&quot; href=&quot;${m.fields.mapLink}&quot;>Haritada aç</a></p>`
             "
           >
-          </span>
+          </div>
         </div>
       </div>
     </div>
@@ -114,7 +115,7 @@ export default {
         lat: marker.fields.positionLat,
         lng: marker.fields.positionLng,
       };
-      this.infoOptions.content = `<h2 class="font-bold">${marker.fields.fullName}</h2><h3 class="font-semibold">${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
+      this.infoOptions.content = `<h2 class="font-bold">${marker.fields.unvan}${marker.fields.fullName}</h2><h3 class="font-semibold">${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
 
       //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
@@ -128,7 +129,7 @@ export default {
       }
     },
     setPlace(place) {
-      console.log(place.address_components[0].long_name);
+      // console.log(place.address_components[0].long_name);
       this.center = {
         lat: place.geometry.location.lat,
         lng: place.geometry.location.lng,
@@ -185,7 +186,7 @@ label {
 .blok-left .searchContainer input {
   @apply px-4 py-2 border w-full;
 }
-.blok-left span {
+.blok-left .aciklama {
   @apply block cursor-pointer hover:bg-gray-200 hover:text-gray-600 active:bg-gray-200 p-2;
 }
 
