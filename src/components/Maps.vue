@@ -115,7 +115,7 @@ export default {
         lat: marker.fields.positionLat,
         lng: marker.fields.positionLng,
       };
-      this.infoOptions.content = `<h2 class="font-bold">${marker.fields.unvan}${marker.fields.fullName}</h2><h3 class="font-semibold">${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
+      this.infoOptions.content = `<h2 class="font-bold"><span class='text-red-400'>${marker.fields.unvan}</span> ${marker.fields.fullName}</h2><h3 class="font-semibold">${marker.fields.job}</h3><p>${marker.fields.address}</p><p><a target="_blank" href="${marker.fields.mapLink}">Haritada aç</a></p>`;
 
       //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
