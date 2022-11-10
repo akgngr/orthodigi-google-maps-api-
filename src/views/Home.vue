@@ -35,7 +35,7 @@ export default {
             },
           }
         )
-        .then(res => {
+        .then((res) => {
           this.markers = res.data.records;
           //console.log(res.data.records);
         });
