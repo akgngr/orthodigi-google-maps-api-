@@ -28,7 +28,7 @@ export default {
         .get(
           "https://api.airtable.com/v0/" +
             process.env.VUE_APP_AIRTABLE_API_BASE_ID +
-            "/doctors?maxRecords=1000&pageSize=1000&sort%5B0%5D%5Bfield%5D=fullName&sort%5B0%5D%5Bdirection%5D=asc",
+            "/doctors?maxRecords=1000&pageSize=100&sort%5B0%5D%5Bfield%5D=fullName&sort%5B0%5D%5Bdirection%5D=asc",
           {
             headers: {
               Authorization: "Bearer " + process.env.VUE_APP_AIRTABLE_API_KEY,
